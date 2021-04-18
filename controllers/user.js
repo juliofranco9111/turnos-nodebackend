@@ -53,6 +53,7 @@ const getUserById = async (req, res = response) => {
             name: userDB.name,
             email :userDB.email,
             id :userDB.id,
+            role: userDB.role
         })
 
 
@@ -66,7 +67,48 @@ const getUserById = async (req, res = response) => {
 
 }
 
+const getProfessionals = async (req, res = response) => {
+  try {
+      const users = await User.find();
+     if(users){
+        const professionals = []
+        
+        users.map( user => {
+            if( user.role === 'PROFESSIONAL_ROLE' ){
+                professionals.push(user)
+            }
+        } )
+
+        if( professionals ){
+            res.status(200).json({
+                ok: true,
+               professionals
+            })
+        }else{
+            return res.status(400).json({
+                ok: false,
+                msg: 'No se encontró ningún profesional'
+            })  
+        }
+     }else{
+        return res.status(400).json({
+            ok: false,
+            msg: 'No se encontró ningún usuario'
+        })
+     }
+    
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+        ok: false,
+        msg: 'Error del servidor'
+    });
+  }
+}
+
 module.exports = {
     getUserByDocument,
-    getUserById
+    getUserById,
+    getProfessionals
 }
