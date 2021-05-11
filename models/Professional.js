@@ -18,6 +18,9 @@ const ProfessionalSchema = Schema({
         type: String,
         required: true
     },
+    img: {
+        type: String,
+    },
 
     role: {
         type: String,

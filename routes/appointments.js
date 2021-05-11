@@ -26,7 +26,7 @@ router.use(verifyToken);
 
 // get Events
 router.get('/usuario/', verifyToken, getAppointmentsByUser);
-router.get('/:date', verifyToken, getAppointmentsByDate);
+router.get('/date/:start', verifyToken, getAppointmentsByDate);
 router.get('/profesional/', verifyToken, getAppointmentsByProfessional);
 router.get('/profesional-pending', verifyToken, getAppointmentsToConfirm);
 
@@ -40,7 +40,8 @@ router.get('/profesional-pending', verifyToken, getAppointmentsToConfirm);
 router.post('/', [
     check('professional', 'El profesional es obligatorio').not().isEmpty(),
     check('user', 'El usuario es obligatorio').not().isEmpty(),
-    check('date', 'La fecha es obligatoria').custom(isDate),
+    check('start', 'La fecha incial es obligatoria').custom(isDate),
+    check('end', 'La fecha final es obligatoria').custom(isDate),
     validateFields
 ], createAppointments);
 

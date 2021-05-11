@@ -39,7 +39,7 @@ const getAppointmentsByProfessional = async (req, res = response) => {
     const professional = req.uid;
 
     try {
-        const appointments = await Appointment.find({ professional })
+        const appointments = await Appointment.find({professional}).populate('user')
 
         if (!appointments) {
             res.status(404).json({
@@ -97,9 +97,9 @@ const getAppointmentsToConfirm = async (req, res = response) => {
 }
 
 const getAppointmentsByDate = async (req, res = response) => {
-    const date = req.params.date;
+    const start = req.params.start;
 
-    const appointment = await Appointment.find({ date });
+    const appointment = await Appointment.find({ start });
 
 
 
@@ -130,9 +130,11 @@ const getAppointmentsByDate = async (req, res = response) => {
 
 const createAppointments = async (req, res = response) => {
 
-    const date = req.body.date;
+    const start = req.body.start;
 
-    const appointmentDB = await Appointment.find({ date })
+    const appointmentDB = await Appointment.find({ start })
+
+    console.log(appointmentDB)
 
     if (appointmentDB.length < 1) {
         try {
@@ -146,9 +148,7 @@ const createAppointments = async (req, res = response) => {
 
             res.json({
                 ok: true,
-                msg: 'Se ha solicitado el turno satisfactoriamente, aguarde la confirmación del profesional en su casilla de correo.',
                 appointment: appointmentDB
-
             })
 
         } catch (error) {

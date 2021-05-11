@@ -4,7 +4,11 @@ const { Schema, model } = require("mongoose");
 
 const AppointmentSchema = Schema({
 
-    date: {
+    start: {
+        type: Date,
+        required: true
+    },
+    end: {
         type: Date,
         required: true
     },

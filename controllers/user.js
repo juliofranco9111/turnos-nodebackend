@@ -53,7 +53,8 @@ const getUserById = async (req, res = response) => {
             name: userDB.name,
             email :userDB.email,
             id :userDB.id,
-            role: userDB.role
+            role: userDB.role,
+            img: userDB.img
         })
 
 
