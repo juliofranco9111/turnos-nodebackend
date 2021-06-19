@@ -14,7 +14,8 @@ const { getAppointmentsByUser,
     createAppointments,
     updateAppointment,
     getAppointmentsByDate,
-    deleteAppointment } = require('../controllers/appointments');
+    deleteAppointment, 
+    getAppointmentsByMonth} = require('../controllers/appointments');
 const { isDate } = require('../helpers/isDate');
 
 
@@ -29,6 +30,7 @@ router.get('/usuario/', verifyToken, getAppointmentsByUser);
 router.get('/date/:start', verifyToken, getAppointmentsByDate);
 router.get('/profesional/', verifyToken, getAppointmentsByProfessional);
 router.get('/profesional-pending', verifyToken, getAppointmentsToConfirm);
+router.get('/profesional/:month', verifyToken, getAppointmentsByMonth);
 
 // create Event
 /* router.post('/', [
