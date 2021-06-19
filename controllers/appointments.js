@@ -122,7 +122,6 @@ const getAppointmentsByMonth = async (req, res = response) => {
 
   const listFiltered = getAppByMonth(month, appointments).sort((a,b) => a.start - b.start);
 
-  console.log(appointments);
   try {
     res.status(200).json({
       ok: true,
